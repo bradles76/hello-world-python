@@ -31,4 +31,4 @@ stages:
           $(tag)
     - task: ShellScript@2
       inputs:
-        scriptPath: tiocs-check.sh
+        scriptPath: tiocs-azure-check.sh
