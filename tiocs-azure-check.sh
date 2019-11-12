@@ -15,5 +15,6 @@ while [ 1 -eq 1 ]; do
     echo "Container marked as FAILED by policy rules"
     exit 1
   fi
+  echo "Response: $RESP"
   sleep 30
 done
