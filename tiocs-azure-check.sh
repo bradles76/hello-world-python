@@ -15,6 +15,9 @@ while [ 1 -eq 1 ]; do
     echo "Container marked as FAILED by policy rules"
     exit 1
   fi
-  echo "Response: $RESP"
+  if [ "x$RESP" = "x" ] ; then
+    echo "No response received, likely this means there is an issue with the script.  Failing"
+    exit 1
+  fi
   sleep 30
 done
