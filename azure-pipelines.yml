@@ -30,5 +30,5 @@ stages:
         tags: |
           $(tag)
     - task: ShellScript@2
-    inputs:
-      scriptPath: tiocs-check.sh
+      inputs:
+        scriptPath: tiocs-check.sh
