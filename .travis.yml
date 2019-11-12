@@ -1,0 +1,19 @@
+sudo: required
+language: python:2.7
+env:
+  global:
+  - IMAGE=hello-world-python
+  - REPO=hello-world-python
+  - TAG=latest
+services:
+- docker
+before_install:
+- docker build -t $IMAGE:$TAG .
+- docker run $IMAGE:$TAG
+script:
+- docker login tenableio-docker-consec-local.jfrog.io -u pubread -p $TENABLE_JFROG_PASSWORD
+- docker pull tenableio-docker-consec-local.jfrog.io/cs-scanner:latest
+- docker save $IMAGE:$TAG | docker run -e DEBUG_MODE=true -e TENABLE_ACCESS_KEY=$TENABLE_IO_ACCESS_KEY
+  -e TENABLE_SECRET_KEY=$TENABLE_IO_SECRET_KEY -e IMPORT_REPO_NAME=$REPO -i tenableio-docker-consec-local.jfrog.io/cs-scanner:latest
+  inspect-image $IMAGE:$TAG
+
