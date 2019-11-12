@@ -29,20 +29,6 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-- stage: Assess
-  displayName: Assess image security
-  jobs:
-  - job: Assess
-    displayName: Assess
-    steps:
-    - task: InvokeRESTAPI@1
-      inputs:
-        connectionType: 'connectedServiceName'
-        serviceConnection: 'Tenable.io API'
-        method: 'POST'
-        headers: |
-          {
-          "Accept":"application/json", 
-          }
-        urlSuffix: '?image=hello-world-python&repo=hello-world-python-azure-devops&tag=$(Build.BuildId)'
-        waitForCompletion: 'false'
+    - task: ShellScript@2
+    inputs:
+      scriptPath: tiocs-check.sh
