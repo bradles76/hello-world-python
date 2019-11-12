@@ -3,7 +3,7 @@ language: python:2.7
 env:
   global:
   - IMAGE=hello-world-python
-  - REPO=hello-world-python
+  - REPO=hello-world-python-travis
   - TAG=latest
   - secure: eUyvymjQrDs1Bzjqsprw37R4YS/pYpZXHCz2JDUhDsiR4MrBsshStIPsoO8d+3B23nrvmTOzpyHb9HUKhAtV3UatTs210c25beU0I4liC4f2Lzg0KnKZtApuItF7EzrStwX3zmMC5sG4k8MNM5ChraxevDrnIotUpooPhYzvQAj+ekpp8M3cP+NqcOVR7GvW7sWGHBfkaLMdqjnwFoU7yOmwdI+ytdRBfT5kF4woLIKUxlZ2EvvpKqAUd96mkjDyOCXC+QXK0kqiUl+CNPMZGlpNFoMlAsB9VMiOLEOfCgx+oyrXWzzjzxZHOal517GCAvuzaF0Jw4yKg/wTCMPVQeapTKSfQi/Ryd+9QP5lFCGLIvefe6LxIj20G+kJ1ITzd+ti++5NXpZHzFgezsnE+GfdArN9W+82wToXGnArAfJvmFoloWXlGIuBpY72Aaa0ODooF7ExXLC5/0GMOZD36LD8GIH9BmaSq0LS51pBcpRTDulvuYUxm9jRLaBwK2Ny2Byxg9KHOz4JxINvp3vkltwxuAAdPnLC1gpanw91PyPvDRo0eN8fy4ceoTVm/xf4yqo88Ji/2cnPK4hVSvrm/VsbCap0Ruiujeg+d5vd547uYrhkHVJQgHjfMtY9HU3nRH8m2bTVXiqoZEvnuoWLJfPG6HNJyEUW5yNINBBsAfg=
   - secure: eCG9u/9zfsPptvMEIpAjqubDGWDXFTAvmIkJaZOpm/FuKmBhib3E4MenPxlC8kep1dfglkSNg+FH/alEWo9fDhKPv+WAvXcujtgmCPr9JsDino/oynyc9P9wCua/1TTN71bJocBvyxhKEoS8WH7ZWPjZJUyKTriswXsLDzOjoUlO6d0VCOHeTtJWQAwTWx0HZf3YXKXEnQFr64XoxXJDpE9a/sL+B3LgTbaDT3OgTpEKD7CbSNxYQcYwb9IjbGbOBatM/CDngAExKj477UQSqEZJm/T5Xn5QSpfxBVG/oOmS2UKiOZyrwTgqV7bLWnRZC+vDR00hKsryIc2z2t32FLR293pyYim66xvPt+6xTjgn9RBWoDaMdBgiY8/clrP7tG4t4t256ynKiygFmF5GwRPu9QHJs1NJmJT602+Y0rxEzDjl+hlO+fVC3OsBhEUb5dQLlgXXN0Y5TPGRTrbltZinkGyKuHEY/dw1Ap6qOk+Enj00w4CYpNGJzuy3zw55xWH9wsYJapBsJZ9Lv5Okmcg5HHe5wHKB9rhpZWyAaf6j89GyVfwXPE9CHOejc+FJ0LgOl2EgnAMm3XHbfDvFeMPnfsXk0DvpUmIcbvrwjeSeORESmPA8dujFqLXUaaelehI9/aSQLIiUSIjx/4SfdE0BuX8RUsdPKiUeYWlhJVU=
@@ -19,3 +19,4 @@ script:
 - docker save $IMAGE:$TAG | docker run -e DEBUG_MODE=true -e TENABLE_ACCESS_KEY=$TENABLE_IO_ACCESS_KEY
   -e TENABLE_SECRET_KEY=$TENABLE_IO_SECRET_KEY -e IMPORT_REPO_NAME=$REPO -i tenableio-docker-consec-local.jfrog.io/cs-scanner:latest
   inspect-image $IMAGE:$TAG
+- cat ./tiocs-check.sh | sh -s
