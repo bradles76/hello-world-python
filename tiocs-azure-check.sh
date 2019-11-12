@@ -1,8 +1,8 @@
 #!/bin/sh
 #This script expects the following environment variables to be set:
-# REPO, IMAGE, TAG, TENABLE_IO_ACCESS_KEY, TENABLE_IO_SECRET_KEY
+# REPO, IMAGE, TAG, $TENABLEACCESSKEY, $TENABLESECRETKEY
 echo "Checking $REPO/$IMAGE:$TAG"
-echo "Tenable.io Access Key: $TENABLE_IO_ACCESS_KEY"
+echo "Tenable.io Access Key: $$TENABLEACCESSKEY"
 while [ 1 -eq 1 ]; do
   RESP=`curl -s --request GET --url "https://cloud.tenable.com/container-security/api/v1/compliancebyname?image=$IMAGE&repo=$REPO&tag=$TAG" \
   --header 'accept: application/json' --header "x-apikeys: accessKey=$TENABLEACCESSKEY;secretKey=$TENABLESECRETKEY" \
