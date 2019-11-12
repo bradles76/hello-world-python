@@ -29,6 +29,12 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+- stage: Assess
+  displayName: Assess image security
+  jobs:
+  - job: Assess
+    displayName: Assess
+    steps:
     - task: InvokeRESTAPI@1
       inputs:
         connectionType: 'connectedServiceName'
