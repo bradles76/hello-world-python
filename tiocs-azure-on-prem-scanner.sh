@@ -7,7 +7,9 @@ echo "Tenable.io Access Key: $TENABLEACCESSKEY"
 docker login --username pubread --password BXaXRD9n3uEWKkGgt56eHVD5h tenableio-docker-consec-local.jfrog.io
 docker pull tenableio-docker-consec-local.jfrog.io/cs-scanner:latest
 
+echo "Start of on-prem analysis"
 docker save $IMAGE:$TAG | docker run -e DEBUG_MODE=true -e TENABLE_ACCESS_KEY=$TENABLE_IO_ACCESS_KEY \
  -e TENABLE_SECRET_KEY=$TENABLE_IO_SECRET_KEY -e IMPORT_REPO_NAME=$REPO \
  -i tenableio-docker-consec-local.jfrog.io/cs-scanner:latest \
  inspect-image $IMAGE:$TAG
+echo "End of on-prem analysis
