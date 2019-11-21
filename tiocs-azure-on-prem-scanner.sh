@@ -9,5 +9,5 @@ docker pull tenableio-docker-consec-local.jfrog.io/cs-scanner:latest
 
 echo "Start of on-prem analysis"
 echo "cmdline: docker save $REPO/$IMAGE:$TAG | docker run -e DEBUG_MODE=true -e TENABLE_ACCESS_KEY=$TENABLEACCESSKEY -e TENABLE_SECRET_KEY=$TENABLESECRETKEY -e IMPORT_REPO_NAME=$REPO -i tenableio-docker-consec-local.jfrog.io/cs-scanner:latest inspect-image $IMAGE:$TAG"
-docker save $IMAGE:$TAG | docker run -e DEBUG_MODE=true -e TENABLE_ACCESS_KEY=$TENABLEACCESSKEY -e TENABLE_SECRET_KEY=$TENABLESECRETKEY -e IMPORT_REPO_NAME=$REPO -i tenableio-docker-consec-local.jfrog.io/cs-scanner:latest inspect-image $IMAGE:$TAG
+docker save $REPO/$IMAGE:$TAG | docker run -e DEBUG_MODE=true -e TENABLE_ACCESS_KEY=$TENABLEACCESSKEY -e TENABLE_SECRET_KEY=$TENABLESECRETKEY -e IMPORT_REPO_NAME=$REPO -i tenableio-docker-consec-local.jfrog.io/cs-scanner:latest inspect-image $IMAGE:$TAG
 echo "End of on-prem analysis
