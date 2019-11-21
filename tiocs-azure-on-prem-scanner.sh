@@ -18,4 +18,20 @@ docker pull tenableio-docker-consec-local.jfrog.io/cs-scanner:latest
 
 echo "Start of on-prem analysis"
 docker save $IMAGE:$BUILD_BUILDID | docker run -e DEBUG_MODE=true -e TENABLE_ACCESS_KEY=$TENABLEACCESSKEY -e TENABLE_SECRET_KEY=$TENABLESECRETKEY -e IMPORT_REPO_NAME=$REPO -i tenableio-docker-consec-local.jfrog.io/cs-scanner:latest inspect-image $IMAGE:$TAG
-echo "End of on-prem analysis
+echo "End of on-prem analysis"
+
+echo "Download report on image"
+while [ 1 -eq 1 ]; do
+  RESP=`curl -s --request GET --url "https://cloud.tenable.com/container-security/api/v1/compliancebyname?image=$IMAGE&repo=$REPO&tag=$BUILD_BUILDID" \
+  --header 'accept: application/json' --header "x-apikeys: accessKey=$TENABLE_IO_ACCESS_KEY;secretKey=$TENABLE_IO_SECRET_KEY" \
+  | sed -n 's/.*\"status\":\"\([^\"]*\)\".*/\1/p'`
+  if [ "x$RESP" = "xpass" ] ; then
+    echo "Container marked as PASSED by policy rules"
+    exit 0
+  fi
+  if [ "x$RESP" = "xfail" ] ; then
+    echo "Container marked as FAILED by policy rules"
+    exit 1
+  fi
+  sleep 30
+done
