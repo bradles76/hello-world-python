@@ -1,7 +1,7 @@
 #!/bin/sh
 #This script expects the following environment variables to be set:
 # REPO, IMAGE, TAG, $TENABLEACCESSKEY, $TENABLESECRETKEY
-echo "Checking $IMAGE:$TAG and uploading results into cloud.tenable.com repo $REPO"
+echo "Checking $IMAGE:$TAG and analyzing results on-premise then reporting into cloud.tenable.com repo $REPO"
 echo "Tenable.io Access Key: $TENABLEACCESSKEY"
 echo ""
 echo "Variables list:"
@@ -26,7 +26,7 @@ echo "End of on-prem analysis"
 echo "Download report on image"
 while [ 1 -eq 1 ]; do
   RESP=`curl -s --request GET --url "https://cloud.tenable.com/container-security/api/v1/compliancebyname?image=$IMAGE&repo=$REPO&tag=$BUILD_BUILDID" \
-  --header 'accept: application/json' --header "x-apikeys: accessKey=$TENABLE_IO_ACCESS_KEY;secretKey=$TENABLE_IO_SECRET_KEY" \
+  --header 'accept: application/json' --header "x-apikeys: accessKey=$TENABLEACCESSKEY;secretKey=$TENABLESECRETKEY" \
   | sed -n 's/.*\"status\":\"\([^\"]*\)\".*/\1/p'`
   echo "Report status: $RESP"
   if [ "x$RESP" = "xpass" ] ; then
