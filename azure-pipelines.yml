@@ -20,18 +20,15 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: ShellScript@2
-      inputs:
-        scriptPath: tiocs-azure-on-prem-scanner.sh
     - task: Docker@2
       displayName: Build an image and push to Tenable.io CS
       inputs:
         containerRegistry: 'Tenable.io CS Cloud'
-        repository: 'hello-world-python-azure-devops/hello-world-python'
-        command: buildAndPush
+        repository: 'hello-world-python'
+        command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
     - task: ShellScript@2
       inputs:
-        scriptPath: tiocs-azure-check.sh
+        scriptPath: tiocs-azure-on-prem-scanner.sh
