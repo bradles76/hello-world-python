@@ -35,10 +35,12 @@ while [ 1 -eq 1 ]; do
   echo "Report status: $RESP"
   if [ "x$RESP" = "xpass" ] ; then
     echo "Container marked as PASSED by policy rules"
+    echo
     exit 0
   fi
   if [ "x$RESP" = "xfail" ] ; then
     echo "Container marked as FAILED by policy rules"
+    echo
     exit 1
   fi
   echo "Waiting 30 seconds before checking again for report"
