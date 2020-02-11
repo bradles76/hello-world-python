@@ -24,7 +24,7 @@ docker save $IMAGENAME:$IMAGETAG | docker run -e DEBUG_MODE=true -e TENABLE_ACCE
 set +x
 echo "End of on-prem analysis"
 
-echo "Download report on image"
+echo "Download report on image $REPO/$IMAGENAME:$IMAGETAG"
 while [ 1 -eq 1 ]; do
   RESP=`curl -s --request GET --url "https://cloud.tenable.com/container-security/api/v1/compliancebyname?image=$IMAGENAME&repo=$REPO&tag=$IMAGETAG" \
   --header 'accept: application/json' --header "x-apikeys: accessKey=$TENABLEACCESSKEY;secretKey=$TENABLESECRETKEY" \
